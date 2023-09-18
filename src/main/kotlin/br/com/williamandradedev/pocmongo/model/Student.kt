@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Student(
     @Id
     val id: String?=null,
-    val firstName: String,
-    val lastName: String,
-    val address: Address,
+    val firstName: String?=null,
+    val lastName: String?=null,
+    val address: Address?=null,
     @Indexed(unique = true)
-    val email: String
+    val email: String?=null
 )

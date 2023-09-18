@@ -2,14 +2,12 @@ package br.com.williamandradedev.pocmongo.controller
 
 import br.com.williamandradedev.pocmongo.controller.dto.StudentDTO
 import br.com.williamandradedev.pocmongo.controller.dto.toModel
+import br.com.williamandradedev.pocmongo.model.Address
 import br.com.williamandradedev.pocmongo.model.Student
 import br.com.williamandradedev.pocmongo.repository.StudentRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("v1/student")
@@ -27,5 +25,12 @@ class StudentController(
             HttpStatus.CREATED
         )
 
-
+    @GetMapping("/{name}/address")
+    fun getStudentAddressByName(
+            @PathVariable("name") name: String
+    ): ResponseEntity<Address> =
+            ResponseEntity(
+                    studentRepository.getAddressByName(name).address,
+                    HttpStatus.OK
+            )
 }
