@@ -2,6 +2,7 @@ package br.com.williamandradedev.pocmongo.controller.dto
 
 import br.com.williamandradedev.pocmongo.model.Address
 import br.com.williamandradedev.pocmongo.model.Student
+import java.math.BigInteger
 
 data class StudentDTO(
     val firstName: String,
@@ -9,6 +10,7 @@ data class StudentDTO(
     val email: String,
     val street: String,
     val neighborhood: String,
+    val classId: BigInteger,
     val city:String
 )
 
@@ -17,6 +19,7 @@ fun StudentDTO.toModel() =
         firstName = this.firstName,
         lastName = this.lastName,
         email = this.email,
+        classId = classId,
         address = Address(
             street = street,
             neighborhood = neighborhood,

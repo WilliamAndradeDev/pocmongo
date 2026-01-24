@@ -57,6 +57,7 @@ class StudentControllerTest {
         studentRepository.saveAll(
             listOf(
                 Student(
+
                     firstName = "Ana",
                     lastName = "MCclean",
                     address = Address(

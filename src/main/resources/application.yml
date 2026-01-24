@@ -1,5 +1,8 @@
 spring:
   data:
+    web:
+      pageable:
+        one-indexed-parameters: true
     mongodb:
       authentication-database: admin
       username: root
@@ -7,6 +10,7 @@ spring:
       database: pocmongo
       host: localhost
       port: 27017
+      uuid-representation: standard
   output:
     ansi:
       enabled: ALWAYS
