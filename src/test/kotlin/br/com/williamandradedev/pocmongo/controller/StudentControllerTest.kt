@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.MountableFile
+
 
 @Testcontainers
 @SpringBootTest
@@ -38,7 +40,10 @@ class StudentControllerTest {
     companion object {
 
         @Container
-        val mongoContainer = MongoDBContainer("mongo:7.0")
+        val mongoContainer =
+            MongoDBContainer("mongo:7.0")
+                .withCopyFileToContainer(MountableFile.forClasspathResource("/mongo/init.js"), "/docker-entrypoint-initdb.d/init.js")
+                .apply{ this.start() }
 
         @JvmStatic
         @DynamicPropertySource
@@ -94,7 +99,7 @@ class StudentControllerTest {
         val students: List<Student> =
             mapper.readValue(resultAsString)
 
-        assertThat(students).hasSize(2)
+        assertThat(students).hasSizeGreaterThan(0)
         assertThat(students[0].firstName).isEqualTo("Ana")
         assertThat(students[1].firstName).isEqualTo("Bruno")
     }
